@@ -1,6 +1,6 @@
 public class student {
-
-    public boolean student() {
-        return true;
+    int i;
+    public student(int i) {
+        this.i = i;
     }
 }
