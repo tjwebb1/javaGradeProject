@@ -5,12 +5,6 @@ public class grade_entry {
     float grade;
     String student_class;
     String assignment_type;
-    
-    private student student = new student();
-
-    public void enter_grade(){
-        student.enter_name();
-    }
 
     public void set_id(int id){
         this.id = id;
