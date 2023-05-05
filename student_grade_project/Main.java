@@ -8,7 +8,7 @@ public class Main{
     static Scanner input = new Scanner(System.in);
     static boolean done = false;
     static int choice;
-    static int index;
+    static int student_index;
     public static List<student> student_list = new ArrayList();
 
 
@@ -28,10 +28,10 @@ public class Main{
         do{
             int choice = initial_screen();
             switch(choice) {
-
-                case 1: grade_entry grade = new grade_entry();
-                        index = grade.find_student(); // for testing
-                        
+                case 1: student_index = student.find_student(); // for testing     
+                        student_list.get(student_index).enter_student_class();     
+                        student_list.get(student_index).enter_assignment_type();
+                        student_list.get(student_index).enter_grade();
                         break;
                 case 2: student new_student = new student();
                         student_list.add(new_student);

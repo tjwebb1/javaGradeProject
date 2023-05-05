@@ -4,34 +4,53 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class student {
-    static UUID id; //static may be causing issues, kept it to have program run, will fix
+    UUID id; //static may be causing issues, kept it to have program run, will fix
     private String grade_level;
     private String name;
-    private Scanner input = new Scanner(System.in);
+    private static Scanner input = new Scanner(System.in);
     UUID random_id = UUID.randomUUID(); // needs fixed, generates same uuid for each person, possibly due to static?
     grade_entry grade_entry = new grade_entry();
     Main main;
 
     @Override
     public String toString() { // for testing
-        return "Student: name = " + name + "; grade level = " + grade_level + "; id = " + id + "; grade = " + grade_entry.grade + "; class = " + grade_entry.student_class + "; assignment = " + grade_entry.assignment_type;
+        return "Student: name = " + name + "; grade level = " + grade_level + "; id = " + id + "; grade = " + grade_entry.grades + "; class = " + grade_entry.student_class + "; assignment = " + grade_entry.assignment_type;
     }
 
-
-    public void create_student() {
-        System.out.print("Please enter students name: ");
-        set_name(input.nextLine());
-        set_id();
+    public static int find_student() {
+        int index = 0;
+        System.out.print("Please enter name of student: ");
+        String name = input.nextLine().toLowerCase(); // picks up empty string and bypasses student search
+        for(student element : Main.student_list) {
+            if(element.get_name().contains(name)) {
+                System.out.println("Search successful");
+                return index;
+            } else {
+                System.out.println("Search failed");
+                index++;
+            }
+        }
+        return -1; // crashes the program, needs fixed
     }
 
-    public void enter_assignment() {
-        System.out.print("Please enter assingment type: ");
+    public void enter_student_class() {
+        System.out.print("Please enter class: ");
+        grade_entry.set_student_class(input.nextLine().toLowerCase());
+    }
+    public void enter_assignment_type() {
+        System.out.print("Please enter assignment type: ");
         grade_entry.set_assignment_type(input.nextLine().toLowerCase());
     }
 
-    public void enter_class() {
-        System.out.print("Please enter class: ");
-        grade_entry.set_student_class(input.nextLine().toLowerCase());
+    public void enter_grade() {
+        System.out.print("Please enter grade: ");
+        grade_entry.set_grade(input.nextFloat());
+    }
+
+    public void create_student() {
+        System.out.print("Please enter students name: ");
+        set_name(input.nextLine().toLowerCase());
+        set_id();
     }
     
     public void enter_grade_level() {
@@ -52,7 +71,7 @@ public class student {
         name = new_name;
     }
 
-    public static UUID get_id() {
+    public UUID get_id() {
         return id;
     }
     
