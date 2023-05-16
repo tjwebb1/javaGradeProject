@@ -25,7 +25,7 @@ public class Main{
         student_list.add(new_student);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         do{
             choice = initial_screen();
             switch(choice) {
@@ -33,6 +33,7 @@ public class Main{
                         student_list.get(student_index).enter_student_class();     
                         student_list.get(student_index).enter_assignment_type();
                         student_list.get(student_index).enter_grade();
+                        student_list.get(student_index).grade_entry.add_grade(grade_entry.class_name, grade_entry.assignment_type,grade_entry.grade);
                         break;
                 case 2: student new_student = new student();
                         store_student(new_student);

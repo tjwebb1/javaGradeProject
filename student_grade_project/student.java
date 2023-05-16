@@ -4,37 +4,40 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class student {
-    UUID id; //static may be causing issues, kept it to have program run, will fix
+    UUID id;
     private String grade_level;
     private String name;
     private static Scanner input = new Scanner(System.in);
-    UUID random_id = UUID.randomUUID(); // needs fixed, generates same uuid for each person, possibly due to static?
+    UUID random_id = UUID.randomUUID();
     grade_entry grade_entry = new grade_entry();
 
     @Override
     public String toString() { // for testing
-        return "Student: name = " + name + "; grade level = " + grade_level + "; id = " + id + "; grade = " + grade_entry.get_grade() + "; class = " + grade_entry.get_student_class() + "; assignment = " + grade_entry.get_assignment_type();
+        return "Student: name = " + name + "; grade level = " + grade_level + "; id = " + id + "; grade = " + grade_entry.get_grade(grade_entry.class_name, grade_entry.assignment_type) + "; class = " + grade_entry.get_student_class() + "; assignment = " + grade_entry.get_assignment(grade_entry.class_name);
     }
 
-    public static int find_student() {
-        int index = 0;
-        System.out.print("Please enter name of student: ");
-        String check = input.nextLine().toLowerCase(); // picks up empty string and bypasses student search
-        for(student element : Main.student_list) {
-            if(element.get_name().contains(check)) {
-                System.out.println("Search successful");
-                return index;
-            } else {
-                index++;
+    public static int find_student() throws Exception{ // need to figure out how to continue program run when student not found
+        try{
+            int index = 0;
+            System.out.print("Please enter name of student: ");
+            String check = input.nextLine().toLowerCase();
+            for(student element : Main.student_list) {
+                if(element.get_name().contains(check)) {
+                    System.out.println("Search successful");
+                    return index;
+                } else {
+                    index++;
+                }
             }
+            throw new Exception();
+        }catch(Exception e) {
+            System.out.println("Student not found.");
         }
-        System.out.println("Search failed");
-        return -1; // crashes the program, needs fixed, exception case
     }
 
     public void enter_student_class() {
         System.out.print("Please enter class: ");
-        grade_entry.set_student_class(input.nextLine().toLowerCase());
+        grade_entry.set_class_name(input.nextLine().toLowerCase());
     }
 
     public void enter_assignment_type() {
@@ -74,16 +77,8 @@ public class student {
     public UUID get_id() {
         return id;
     }
-    
-    public String get_grade_level() {
-        return grade_level;
-    }
 
     public String get_name() {
         return name;
-    }
-
-    public String get_name(String name) {
-        return this.name;
     }
 }
