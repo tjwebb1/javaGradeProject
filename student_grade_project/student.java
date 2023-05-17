@@ -13,26 +13,40 @@ public class student {
 
     @Override
     public String toString() { // for testing
-        return "Student: name = " + name + "; grade level = " + grade_level + "; id = " + id + "; grade = " + grade_entry.get_grade(grade_entry.class_name, grade_entry.assignment_type) + "; class = " + grade_entry.get_student_class() + "; assignment = " + grade_entry.get_assignment(grade_entry.class_name);
+        return "Student: name = " + name + "; grade level = " + grade_level + "; id = " + id + "; grade = " + grade_entry.get_student_class() + ";";
     }
 
-    public static int find_student() throws Exception{ // need to figure out how to continue program run when student not found
-        try{
-            int index = 0;
-            System.out.print("Please enter name of student: ");
-            String check = input.nextLine().toLowerCase();
-            for(student element : Main.student_list) {
-                if(element.get_name().contains(check)) {
-                    System.out.println("Search successful");
-                    return index;
-                } else {
-                    index++;
-                }
-            }
-            throw new Exception();
-        }catch(Exception e) {
-            System.out.println("Student not found.");
+    public static int student_list_check(int choice, int size) {
+        if((choice == 1 || choice == 3) && size == 0) {
+            System.out.println("There are no student, please enter a student first.");
+            return -1;
+        } else {
+            return choice;
         }
+    }
+    public static int check_find_student() {
+        int check = find_student();
+        if(check == -1) {
+            return check_find_student();
+        } else {
+            return check;
+        }
+    }
+
+    public static int find_student(){
+        int index = 0;
+        System.out.print("Please enter name of student: ");
+        String check = input.nextLine().toLowerCase();
+        for(student element : Main.student_list) {
+            if(element.get_name().equals(check)) {
+                System.out.println("Search successful");
+                return index;
+            } else {
+                index++;
+            }
+        }
+        System.out.println("Student not found.");
+        return -1;
     }
 
     public void enter_student_class() {

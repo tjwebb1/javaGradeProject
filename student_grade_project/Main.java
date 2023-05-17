@@ -7,47 +7,103 @@ import java.util.Scanner;
 public class Main{
     static Scanner input = new Scanner(System.in);
     static boolean done = false;
-    static int choice;
+    static int initial_choice;
+    static int grade_choice;
     static int student_index;
     public static List<student> student_list = new ArrayList<>();
 
 
-    public static int initial_screen() {
-        System.out.println("Please enter one of the options below." + "\n");
-        System.out.println("1. Enter Grade. ");
-        System.out.println("2. Enter new student. ");
-        System.out.println("3. Check grades: ");
-        choice = Integer.parseInt(input.nextLine());
-        return choice;
+    public static int initial_screen(){
+        try {
+            System.out.println("Please enter one of the options below." + "\n");
+            System.out.println("1. Enter new student. ");
+            System.out.println("2. Enter new grade. ");
+            System.out.println("3. Check grades. ");
+            System.out.println("4. Exit the program. ");
+            System.out.print("Enter choice: ");
+            initial_choice = Integer.parseInt(input.nextLine());
+            return initial_choice;
+        } catch(Exception e) {
+            return -1;
+        }
+    }
+
+    public static int grade_choice(){
+        try {
+            System.out.println("Please enter one of the options below." + "\n");
+            System.out.println("1. Get grades of student. ");
+            System.out.println("2. Get class grades of student. ");
+            System.out.println("3. Get assignment grades in class of student. ");
+            System.out.print("Enter choice: ");
+            grade_choice = Integer.parseInt(input.nextLine());
+            return grade_choice;
+        } catch(Exception e) {
+            return -1;
+        }
+    }
+
+    public static void grade_switch_case() {
+        boolean grade_done = false;
+        do{
+            grade_choice = grade_choice();
+            switch(grade_choice) {
+                case 1: student_index = student.check_find_student();
+                        student_list.get(student_index).grade_entry.print_student_grades();
+                        // get grades by student
+                        grade_done = true;
+                        break;
+                case 2: student_index = student.check_find_student();
+
+                        // get grades by student and class
+                        grade_done = true;
+                        break;
+                case 3: // get grades by student, class, and assignment
+                        grade_done = true;
+                        break;
+                default: System.out.println("Invalid input, please enter valid input." + "\n");
+                        break;  
+            }
+        } while(!(grade_done));
     }
 
     public static void store_student(student new_student) {
         student_list.add(new_student);
     }
 
-    public static void main(String[] args) throws Exception {
+    public static int student_list_check(int choice, int size) {
+        if((choice == 2 || choice == 3) && size == 0) {
+            System.out.println("\n" + "There are no students added, please enter a student first." + "\n");
+            return 0;
+        } else {
+            return choice;
+        }
+    }
+
+    public static void main(String[] args) throws Exception{
         do{
-            choice = initial_screen();
-            switch(choice) {
-                case 1: student_index = student.find_student(); // for testing     
-                        student_list.get(student_index).enter_student_class();     
-                        student_list.get(student_index).enter_assignment_type();
-                        student_list.get(student_index).enter_grade();
-                        student_list.get(student_index).grade_entry.add_grade(grade_entry.class_name, grade_entry.assignment_type,grade_entry.grade);
-                        break;
-                case 2: student new_student = new student();
+            int screen_check = initial_screen();
+            initial_choice = student_list_check(screen_check, student_list.size());
+            switch(initial_choice) {
+                case 0: break;
+                case 1: student new_student = new student();
                         store_student(new_student);
                         new_student.create_student();
                         new_student.enter_grade_level();
                         break;
-                case 3: for(int i = 0; i < student_list.size(); i++) {
-                        System.out.println(student_list.get(i)); // for testing
-                        }   
+                case 2: student_index = student.check_find_student(); // for testing     
+                        student_list.get(student_index).enter_student_class();     
+                        student_list.get(student_index).enter_assignment_type();
+                        student_list.get(student_index).enter_grade();
+                        student_list.get(student_index).grade_entry.add_grade(grade_entry.get_class_name(), grade_entry.get_assignment_type(),grade_entry.get_grade());
                         break;
-                default:
-                        System.out.println("Invalid input, please enter valid input.");
+                case 3: grade_switch_case();
+                        break;
+                case 4: done = true;
+                        break;
+                default: System.out.println("\n" + "Invalid input, please enter valid input." + "\n");
                         break;
             }          
         } while (!(done));
+        System.out.println("Thank you for using the program!");
     }
 }
