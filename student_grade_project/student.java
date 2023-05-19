@@ -35,11 +35,11 @@ public class student {
 
     public static int find_student(){
         int index = 0;
-        System.out.print("Please enter name of student: ");
+        System.out.print("\nPlease enter name of student: ");
         String check = input.nextLine().toLowerCase();
         for(student element : Main.student_list) {
             if(element.get_name().equals(check)) {
-                System.out.println("Search successful");
+                System.out.println("\nStudent found successfully.\n");
                 return index;
             } else {
                 index++;
@@ -65,7 +65,7 @@ public class student {
     }
 
     public void create_student() {
-        System.out.print("Please enter students name: ");
+        System.out.print("\nPlease enter students name: ");
         set_name(input.nextLine().toLowerCase());
         set_id();
     }

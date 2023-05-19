@@ -15,7 +15,7 @@ public class Main{
 
     public static int initial_screen(){
         try {
-            System.out.println("Please enter one of the options below." + "\n");
+            System.out.println("\nPlease enter one of the options below.\n");
             System.out.println("1. Enter new student. ");
             System.out.println("2. Enter new grade. ");
             System.out.println("3. Check grades. ");
@@ -31,9 +31,9 @@ public class Main{
     public static int grade_choice(){
         try {
             System.out.println("Please enter one of the options below." + "\n");
-            System.out.println("1. Get grades of student. ");
-            System.out.println("2. Get class grades of student. ");
-            System.out.println("3. Get assignment grades in class of student. ");
+            System.out.println("1. Get all grades of student. ");
+            System.out.println("2. Get specified class grades of student. ");
+            System.out.println("3. Get assignment grades in specified class of student. ");
             System.out.print("Enter choice: ");
             grade_choice = Integer.parseInt(input.nextLine());
             return grade_choice;
@@ -46,18 +46,16 @@ public class Main{
         boolean grade_done = false;
         do{
             grade_choice = grade_choice();
+            student_index = student.check_find_student();
+            student new_student = student_list.get(student_index);
             switch(grade_choice) {
-                case 1: student_index = student.check_find_student();
-                        student_list.get(student_index).grade_entry.print_student_grades();
-                        // get grades by student
+                case 1: new_student.grade_entry.print_student_full_grades(new_student);
                         grade_done = true;
                         break;
-                case 2: student_index = student.check_find_student();
-
-                        // get grades by student and class
+                case 2: new_student.grade_entry.print_student_single_class_grades(new_student);
                         grade_done = true;
                         break;
-                case 3: // get grades by student, class, and assignment
+                case 3: new_student.grade_entry.print_student_full_grades(new_student);
                         grade_done = true;
                         break;
                 default: System.out.println("Invalid input, please enter valid input." + "\n");
@@ -90,11 +88,12 @@ public class Main{
                         new_student.create_student();
                         new_student.enter_grade_level();
                         break;
-                case 2: student_index = student.check_find_student(); // for testing     
-                        student_list.get(student_index).enter_student_class();     
-                        student_list.get(student_index).enter_assignment_type();
-                        student_list.get(student_index).enter_grade();
-                        student_list.get(student_index).grade_entry.add_grade(grade_entry.get_class_name(), grade_entry.get_assignment_type(),grade_entry.get_grade());
+                case 2: student_index = student.check_find_student(); // for testing
+                        student student = student_list.get(student_index);     
+                        student.enter_student_class();     
+                        student.enter_assignment_type();
+                        student.enter_grade();
+                        student.grade_entry.add_grade(student.grade_entry.get_class_name(), student.grade_entry.get_assignment_type(),student.grade_entry.get_grade());
                         break;
                 case 3: grade_switch_case();
                         break;

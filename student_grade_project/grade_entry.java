@@ -9,10 +9,10 @@ import java.util.List;
 
 public class grade_entry {
     UUID id;
-    private static String class_name;
-    private static String assignment_type;
-    private static Float grade;
-    static Map<String, Map<String, List<Float>>> student_class = new LinkedHashMap<>();
+    private String class_name;
+    private String assignment_type;
+    private Float grade;
+    Map<String, Map<String, List<Float>>> student_class = new LinkedHashMap<>();
     
     public void set_id(UUID id) {
         this.id = id;
@@ -36,27 +36,27 @@ public class grade_entry {
         this.grade = grade;
     }
 
-    public static String get_class_name() {
+    public String get_class_name() {
         return class_name;
     }
 
-    public static String get_assignment_type() {
+    public String get_assignment_type() {
         return assignment_type;
     }
 
-    public static float get_grade() {
+    public float get_grade() {
         return grade;
     }
 
-    public static Map<String, Map<String, List<Float>>> get_student_class() {
+    public Map<String, Map<String, List<Float>>> get_student_class() {
         return student_class;
     }
 
-    public static Map<String, List<Float>> get_assignment(String class_name) {
+    public Map<String, List<Float>> get_assignment(String class_name) {
         return student_class.getOrDefault(class_name, Collections.emptyMap());
     }
 
-    public static List<Float> get_grade(String class_name, String assignment_type) {
+    public List<Float> get_grade(String class_name, String assignment_type) {
         Map<String, List<Float>> assignments = student_class.get(class_name);
         if(assignments != null) {
             return assignments.getOrDefault(assignment_type, Collections.emptyList());
@@ -64,12 +64,33 @@ public class grade_entry {
         return Collections.emptyList();
     }
 
-    public static void print_student_grades() { // needs a major revamp with getKey() and getValue() and other types, Grade can keep k though
-        for(int i = 0; i < student_class.size(); i++) {
-            for(int j = 0; j < get_assignment(get_class_name()).size(); j++) {
-                for(int k = 0; k < get_grade(get_class_name(),get_assignment_type()).size(); k++) {
-                    System.out.println("In your " + get_student_class().get(i) + "class, for your " + get_assignment(get_class_name()).get(j) + 
-                    " assignment type, you got an " +  get_grade(get_class_name(),get_assignment_type()).get(k) + " on assignment " + (k+1));
+    public void print_student_full_grades(student student) { 
+        Map<String, Map<String, List<Float>>> student_class = student.grade_entry.get_student_class();
+        for(Map.Entry<String, Map<String, List<Float>>> class_entry : student_class.entrySet()) {
+            String class_name = class_entry.getKey();
+            Map<String, List<Float>> assignments = class_entry.getValue();
+            System.out.println("In your " + class_name + " class: ");
+            for(Map.Entry<String, List<Float>> assignment_entry : assignments.entrySet()) {
+                String assignment_type = assignment_entry.getKey();
+                List<Float> grade = assignment_entry.getValue();
+                for(int i = 0; i < grade.size(); i++) {
+                    System.out.println("- You received a grade of " + grade.get(i) + " on " + assignment_type + " number " + (i+1) + "\n");
+                }
+            }
+        }
+    }
+
+    public void print_student_single_class_grades(student student_name) { 
+        Map<String, Map<String, List<Float>>> student_class = student_name.grade_entry.get_student_class();
+        for(Map.Entry<String, Map<String, List<Float>>> class_entry : student_class.entrySet()) {
+            String class_name = class_entry.getKey();
+            Map<String, List<Float>> assignments = class_entry.getValue();
+            System.out.println("In your " + class_name + " class: ");
+            for(Map.Entry<String, List<Float>> assignment_entry : assignments.entrySet()) {
+                String assignment_type = assignment_entry.getKey();
+                List<Float> grade = assignment_entry.getValue();
+                for(int i = 0; i < grade.size(); i++) {
+                    System.out.println("- You received a grade of " + grade.get(i) + " on " + assignment_type + " number " + (i+1) + "\n");
                 }
             }
         }
