@@ -15,7 +15,7 @@ public class Main{
 
     public static int initial_screen(){
         try {
-            System.out.println("\nPlease enter one of the options below.\n");
+            System.out.println("\nPlease enter one of the options below.");
             System.out.println("1. Enter new student. ");
             System.out.println("2. Enter new grade. ");
             System.out.println("3. Check grades. ");
@@ -30,7 +30,7 @@ public class Main{
 
     public static int grade_choice(){
         try {
-            System.out.println("Please enter one of the options below." + "\n");
+            System.out.println("\nPlease enter one of the options below.");
             System.out.println("1. Get all grades of student. ");
             System.out.println("2. Get specified class grades of student. ");
             System.out.println("3. Get assignment grades in specified class of student. ");
@@ -44,6 +44,7 @@ public class Main{
 
     public static void grade_switch_case() {
         boolean grade_done = false;
+        String class_choice = "";
         do{
             grade_choice = grade_choice();
             student_index = student.check_find_student();
@@ -52,15 +53,21 @@ public class Main{
                 case 1: new_student.grade_entry.print_student_full_grades(new_student);
                         grade_done = true;
                         break;
-                case 2: new_student.grade_entry.print_student_single_class_grades(new_student);
+                case 2: System.out.print("Please enter name of the class you'd like to see grades of: ");
+                        class_choice = input.nextLine().toLowerCase();
+                        new_student.grade_entry.print_student_single_class_grades(new_student, class_choice);
                         grade_done = true;
                         break;
-                case 3: new_student.grade_entry.print_student_full_grades(new_student);
+                case 3: System.out.print("Please enter name of the class you'd like to see grades of: ");
+                        class_choice = input.nextLine().toLowerCase();
+                        System.out.print("Please enter the assignment type you'd like to see the grades of: ");
+                        String assignment_choice = input.nextLine().toLowerCase();
+                        new_student.grade_entry.print_student_single_assignment_grades(new_student, class_choice, assignment_choice);
                         grade_done = true;
                         break;
                 default: System.out.println("Invalid input, please enter valid input." + "\n");
                         break;  
-            }
+            } 
         } while(!(grade_done));
     }
 
@@ -70,7 +77,7 @@ public class Main{
 
     public static int student_list_check(int choice, int size) {
         if((choice == 2 || choice == 3) && size == 0) {
-            System.out.println("\n" + "There are no students added, please enter a student first." + "\n");
+            System.out.println("\n" + "There are no students added, please enter a student first.");
             return 0;
         } else {
             return choice;
@@ -99,10 +106,10 @@ public class Main{
                         break;
                 case 4: done = true;
                         break;
-                default: System.out.println("\n" + "Invalid input, please enter valid input." + "\n");
+                default: System.out.println("\nInvalid input, please enter valid input.\n");
                         break;
             }          
         } while (!(done));
-        System.out.println("Thank you for using the program!");
+        System.out.println("\nThank you for using the program!");
     }
-}
+} 
