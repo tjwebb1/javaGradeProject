@@ -98,7 +98,7 @@ public class grade_entry {
         }
     }
 
-    public void print_student_single_assignment_grades(student student_name, String class_input, String assignment_entry) { 
+    public void print_student_single_assignment_grades(student student_name, String class_input, String assignment_input) { 
         Map<String, Map<String, List<Float>>> student_class = student_name.grade_entry.get_student_class();
         for(Map.Entry<String, Map<String, List<Float>>> class_entry : student_class.entrySet()) {
             String class_name = class_entry.getKey();
@@ -107,7 +107,7 @@ public class grade_entry {
                 System.out.println("In your " + class_name + " class: ");
                 for(Map.Entry<String, List<Float>> assignment_name : assignments.entrySet()) {
                     String assignment_type = assignment_name.getKey();
-                    if(assignment_type.equals(assignment_entry)) {
+                    if(assignment_type.equals(assignment_input)) {
                         List<Float> grade = assignment_name.getValue();
                         for(int i = 0; i < grade.size(); i++) {
                             System.out.println("- You received a grade of " + grade.get(i) + " on " + assignment_type + " number " + (i+1) + "\n");

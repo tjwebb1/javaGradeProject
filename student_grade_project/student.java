@@ -16,14 +16,6 @@ public class student {
         return "Student: name = " + name + "; grade level = " + grade_level + "; id = " + id + "; grade = " + grade_entry.get_student_class() + ";";
     }
 
-    public static int student_list_check(int choice, int size) {
-        if((choice == 1 || choice == 3) && size == 0) {
-            System.out.println("There are no student, please enter a student first.");
-            return -1;
-        } else {
-            return choice;
-        }
-    }
     public static int check_find_student() {
         int check = find_student();
         if(check == -1) {
@@ -60,8 +52,18 @@ public class student {
     }
 
     public void enter_grade() {
-        System.out.print("Please enter grade: ");
-        grade_entry.set_grade(Float.parseFloat(input.nextLine()));
+        Boolean check = false;
+        while(!(check)) {
+            System.out.print("Please enter grade: ");
+            String grade_check = input.nextLine();
+            try {
+                float grade = Float.parseFloat(grade_check);
+                grade_entry.set_grade(grade);
+                check = true;
+            } catch(NumberFormatException e) {
+                System.out.println("\nNot a valid grade, please enter an a valid grade.\n");
+            }
+        }
     }
 
     public void create_student() {
