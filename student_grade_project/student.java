@@ -19,6 +19,9 @@ public class student {
     public static int check_find_student() {
         int check = find_student();
         if(check == -1) {
+            return -1;
+        }
+        else if(check == -2) {
             return check_find_student();
         } else {
             return check;
@@ -27,8 +30,11 @@ public class student {
 
     public static int find_student(){
         int index = 0;
-        System.out.print("\nPlease enter name of student: ");
+        System.out.print("\nPlease enter name of student (or enter -1 to exit): ");
         String check = input.nextLine().toLowerCase();
+        if(check.equals("-1")) {
+            return -1;
+        }
         for(student element : Main.student_list) {
             if(element.get_name().equals(check)) {
                 System.out.println("\nStudent found successfully.\n");
@@ -38,7 +44,7 @@ public class student {
             }
         }
         System.out.println("Student not found.");
-        return -1;
+        return -2;
     }
 
     public void enter_student_class() {

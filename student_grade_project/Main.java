@@ -95,7 +95,10 @@ public class Main{
                         new_student.create_student();
                         new_student.enter_grade_level();
                         break;
-                case 2: student_index = student.check_find_student(); // for testing
+                case 2: student_index = student.check_find_student();
+                        if(student_index == -1) {
+                            break;
+                        }
                         student student = student_list.get(student_index);     
                         student.enter_student_class();     
                         student.enter_assignment_type();
