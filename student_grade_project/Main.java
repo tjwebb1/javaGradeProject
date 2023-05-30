@@ -47,18 +47,22 @@ public class Main{
         String class_choice = "";
         do{
             grade_choice = grade_choice();
-            student_index = student.check_find_student();
-            student new_student = student_list.get(student_index);
             switch(grade_choice) {
-                case 1: new_student.grade_entry.print_student_full_grades(new_student);
+                case 1: student_index = student.check_find_student();
+                        student new_student = student_list.get(student_index);
+                        new_student.grade_entry.print_student_full_grades(new_student);
                         grade_done = true;
                         break;
-                case 2: System.out.print("Please enter name of the class you'd like to see grades of: ");
+                case 2: student_index = student.check_find_student();
+                        new_student = student_list.get(student_index);
+                        System.out.print("Please enter name of the class you'd like to see grades of: ");
                         class_choice = input.nextLine().toLowerCase();
                         new_student.grade_entry.print_student_single_class_grades(new_student, class_choice);
                         grade_done = true;
                         break;
-                case 3: System.out.print("Please enter name of the class you'd like to see grades of: ");
+                case 3: student_index = student.check_find_student();
+                        new_student = student_list.get(student_index);
+                        System.out.print("Please enter name of the class you'd like to see grades of: ");
                         class_choice = input.nextLine().toLowerCase();
                         System.out.print("Please enter the assignment type you'd like to see the grades of: ");
                         String assignment_choice = input.nextLine().toLowerCase();
@@ -93,7 +97,6 @@ public class Main{
                 case 1: student new_student = new student();
                         store_student(new_student);
                         new_student.create_student();
-                        new_student.enter_grade_level();
                         break;
                 case 2: student_index = student.check_find_student();
                         if(student_index == -1) {

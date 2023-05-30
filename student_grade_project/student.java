@@ -11,11 +11,6 @@ public class student {
     UUID random_id = UUID.randomUUID();
     grade_entry grade_entry = new grade_entry();
 
-    @Override
-    public String toString() { // for testing
-        return "Student: name = " + name + "; grade level = " + grade_level + "; id = " + id + "; grade = " + grade_entry.get_student_class() + ";";
-    }
-
     public static int check_find_student() {
         int check = find_student();
         if(check == -1) {
@@ -43,7 +38,7 @@ public class student {
                 index++;
             }
         }
-        System.out.println("Student not found.");
+        System.out.println("\nStudent not found.");
         return -2;
     }
 
@@ -76,6 +71,7 @@ public class student {
         System.out.print("\nPlease enter students name: ");
         set_name(input.nextLine().toLowerCase());
         set_id();
+        enter_grade_level();
     }
     
     public void enter_grade_level() {

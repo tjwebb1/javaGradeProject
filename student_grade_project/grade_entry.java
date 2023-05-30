@@ -1,7 +1,6 @@
 package student_grade_project;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -50,18 +49,6 @@ public class grade_entry {
 
     public Map<String, Map<String, List<Float>>> get_student_class() {
         return student_class;
-    }
-
-    public Map<String, List<Float>> get_assignment(String class_name) {
-        return student_class.getOrDefault(class_name, Collections.emptyMap());
-    }
-
-    public List<Float> get_grade(String class_name, String assignment_type) {
-        Map<String, List<Float>> assignments = student_class.get(class_name);
-        if(assignments != null) {
-            return assignments.getOrDefault(assignment_type, Collections.emptyList());
-        }
-        return Collections.emptyList();
     }
 
     public void print_student_full_grades(student student) { 
