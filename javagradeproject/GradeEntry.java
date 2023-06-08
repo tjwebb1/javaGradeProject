@@ -1,4 +1,4 @@
-package student_grade_project;
+package studentgradeproject;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
