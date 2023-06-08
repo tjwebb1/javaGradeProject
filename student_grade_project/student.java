@@ -3,35 +3,35 @@ package student_grade_project;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class student {
+public class Student {
     UUID id;
-    private String grade_level;
+    private String gradeLevel;
     private String name;
     private static Scanner input = new Scanner(System.in);
-    UUID random_id = UUID.randomUUID();
-    grade_entry grade_entry = new grade_entry();
+    UUID randomID = UUID.randomUUID();
+    GradeEntry gradeEntry = new GradeEntry();
 
-    public static int check_find_student() {
-        int check = find_student();
+    public static int findStudentCheck() {
+        int check = findStudent();
         if(check == -1) {
             return -1;
         }
         else if(check == -2) {
-            return check_find_student();
+            return findStudentCheck();
         } else {
             return check;
         }
     }
 
-    public static int find_student(){
+    public static int findStudent(){
         int index = 0;
         System.out.print("\nPlease enter name of student (or enter -1 to exit): ");
         String check = input.nextLine().toLowerCase();
         if(check.equals("-1")) {
             return -1;
         }
-        for(student element : Main.student_list) {
-            if(element.get_name().equals(check)) {
+        for(Student element : Main.studentList) {
+            if(element.getName().equals(check)) {
                 System.out.println("\nStudent found successfully.\n");
                 return index;
             } else {
@@ -42,24 +42,24 @@ public class student {
         return -2;
     }
 
-    public void enter_student_class() {
+    public void enterStudentClass() {
         System.out.print("Please enter class: ");
-        grade_entry.set_class_name(input.nextLine().toLowerCase());
+        gradeEntry.setClassName(input.nextLine().toLowerCase());
     }
 
-    public void enter_assignment_type() {
+    public void enterAssignmentType() {
         System.out.print("Please enter assignment type: ");
-        grade_entry.set_assignment_type(input.nextLine().toLowerCase());
+        gradeEntry.setAssignmentType(input.nextLine().toLowerCase());
     }
 
-    public void enter_grade() {
+    public void enterGrade() {
         Boolean check = false;
-        while(!(check)) {
+        while(Boolean.FALSE.equals((check))) {
             System.out.print("Please enter grade: ");
-            String grade_check = input.nextLine();
+            String gradeCheck = input.nextLine();
             try {
-                float grade = Float.parseFloat(grade_check);
-                grade_entry.set_grade(grade);
+                float grade = Float.parseFloat(gradeCheck);
+                gradeEntry.setGrade(grade);
                 check = true;
             } catch(NumberFormatException e) {
                 System.out.println("\nNot a valid grade, please enter an a valid grade.\n");
@@ -67,36 +67,40 @@ public class student {
         }
     }
 
-    public void create_student() {
+    public void createStudent() {
         System.out.print("\nPlease enter students name: ");
-        set_name(input.nextLine().toLowerCase());
-        set_id();
-        enter_grade_level();
+        setName(input.nextLine().toLowerCase());
+        setID();
+        enterGradeLevel();
     }
     
-    public void enter_grade_level() {
+    public void enterGradeLevel() {
         System.out.print("Please enter students grade level: ");
-        set_grade_level(input.nextLine().toLowerCase());
+        setGradeLevel(input.nextLine().toLowerCase());
     }
 
-    public void set_id() {
-        this.id = random_id;
-        grade_entry.set_id(id);
+    public void setID() {
+        this.id = randomID;
+        gradeEntry.setID(id);
     }
 
-    public void set_grade_level(String new_grade_level) {
-        grade_level = new_grade_level;
+    public void setGradeLevel(String gradeLevel) {
+        this.gradeLevel = gradeLevel;
     }
 
-    public void set_name(String new_name) {
-        name = new_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public UUID get_id() {
+    public UUID getID() {
         return id;
     }
 
-    public String get_name() {
+    public String getGradeLevel() {
+        return gradeLevel;
+    }
+
+    public String getName() {
         return name;
     }
 }
