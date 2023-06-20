@@ -1,5 +1,3 @@
-package Student-Grade-Project;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -52,7 +50,7 @@ public class GradeEntry {
     }
 
     public void printStudentsFullGrades(Student student) { 
-        Map<String, Map<String, List<Float>>> studentClass = student.gradeEntry.getStudentClass();
+        studentClass = student.gradeEntry.getStudentClass();
         for(Map.Entry<String, Map<String, List<Float>>> classEntry : studentClass.entrySet()) {
             className = classEntry.getKey();
             Map<String, List<Float>> assignments = classEntry.getValue();
