@@ -1,4 +1,4 @@
-package studentgradeproject;
+package Student-Grade-Storage;
 
 import java.util.Scanner;
 import java.util.UUID;
